@@ -39,7 +39,6 @@ public class GoogleDrive {
 	  //Insert a file  
 	    File body = new File();
 	    body.setTitle("name");
-	    name=name+".txt";
 	    body.setDescription("A test");
 	    FileContent mediaContent = new FileContent("text/plain", file);
 	    File file1 = service.files().insert(body, mediaContent).execute();
@@ -47,7 +46,6 @@ public class GoogleDrive {
 	    length.put(name, (int) file.length());
   }
   public byte[] downloadFile(String name) {
-	  name=name+".txt";
 	  File file=files.get(name);
 	    if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
 	      try {

@@ -1,10 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 
 import kuaipan.KuaipanAuthExpiredException;
 import kuaipan.KuaipanException;
@@ -18,15 +22,31 @@ public class UI extends JFrame{
 	private String googleID;
 	private String googlePassword;
 	protected JLabel title =new JLabel("MY CLOUD STORAGE");
-	private String []kinds ={"1.txt"};
+	private String root="./files";
+	private String []kinds ={"图片","文档","视频","音乐","其它"};
+	private String []location={"./picture","./document","./video","./music","./other"};
 	//protected ImageIcon cloud =new ImageIcon("cloud.jpg");
-	public JList Leftlist =new JList(kinds);                 
-	public JList Rightlist =new JList();   	
-
+	public JList Leftlist=new JList(kinds);               
+	private DefaultListModel dlm=new DefaultListModel<>();
+	public JList Rightlist =new JList(dlm); 
 	private static final Font font1 = new Font("Calibri",Font.BOLD,15);
 	
 	public UI() {
-		
+		Leftlist.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				String lo=location[Leftlist.getSelectedIndex()];
+				File file=new File(lo);
+				File[] list=file.listFiles();
+				dlm.clear();
+				for (File temp:list){
+					dlm.addElement(temp.getName());
+				}
+				
+			}
+		});
 		JPanel p1 = new JPanel();
 		p1.setLayout(new FlowLayout());
 		JButton jbtUpload = new JButton("上传到云端");
@@ -78,7 +98,8 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String name=(String) Leftlist.getSelectedValue();
+				String lo=location[Leftlist.getSelectedIndex()];
+				String name=lo+"/"+(String)Rightlist.getSelectedValue();
 				Upload upload=new Upload();
 				try {
 					upload.UploadFile(name);
@@ -93,7 +114,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String name=(String)Leftlist.getSelectedValue();
+				String name=(String) Rightlist.getSelectedValue();
 				Download download=new Download();
 				try {
 					download.DownloadFile(name);

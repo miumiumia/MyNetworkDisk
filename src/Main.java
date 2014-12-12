@@ -15,14 +15,15 @@ public class Main {
 	static int disknumber=2;
 	public static void main(String[] args) throws Exception {
 		UI ui=new UI();
-		ui.setTitle("Online Distributed Disk");
+		ui.setTitle("My Online Distributed Disk");
 		ui.setSize(700,450);
 		ui.setLocationRelativeTo(null);
 		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ui.setVisible(true);
-		googleDrive=new GoogleDrive();
-		googleDrive.init();
 		kuaipan=new Kuaipan();
 		kuaipan.init();
+		googleDrive=new GoogleDrive();
+		googleDrive.init();
+		
 	}
 }

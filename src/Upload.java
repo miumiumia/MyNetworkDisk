@@ -15,7 +15,9 @@ public class Upload {
 		ArrayList<File> files=divide.divideFile(file);
 		File googleFile=files.get(0);
 		File kuaipanfile=files.get(1);
-		Main.googleDrive.uploadFile(name, kuaipanfile);
+		name=name.substring(1);
+		name=name.replaceAll("/.*/", "");
+		Main.googleDrive.uploadFile(name, googleFile);
 		Main.kuaipan.uploadFile(name, kuaipanfile);
 	}
 }

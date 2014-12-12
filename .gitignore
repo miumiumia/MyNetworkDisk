@@ -2,3 +2,5 @@
 /libs-sources/*
 /bin/*
 config.json
+*.txt
+*.jpg

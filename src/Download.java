@@ -9,8 +9,10 @@ import kuaipan.KuaipanServerException;
 
 public class Download {
 	public void DownloadFile(String name) throws KuaipanIOException, KuaipanAuthExpiredException, KuaipanServerException, IOException{
+		name=name.replaceAll("/.*/", "");
 		byte[] b1=Main.googleDrive.downloadFile(name);
 		byte[] b2=Main.kuaipan.downloadFile(name);
+		System.out.println("b1"+b1.length+"b2"+b2.length);
 		byte[] b=new byte[b1.length+b2.length];
 		for (int i=0;i<b1.length;i++)
 			b[i]=b1[i];
