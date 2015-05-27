@@ -4,10 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import org.mortbay.jetty.AbstractGenerator.OutputWriter;
-
-
 public class Divide {
 	public ArrayList<File> divideFile(File file) throws IOException{
 		int nowdisk=Main.disknumber;

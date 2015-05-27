@@ -11,13 +11,43 @@ import kuaipan.KuaipanServerException;
 public class Upload {
 	public void UploadFile(String name) throws IOException, KuaipanServerException, KuaipanAuthExpiredException, KuaipanException{
 		java.io.File file=new java.io.File(name);
-		Divide divide=new Divide();
-		ArrayList<File> files=divide.divideFile(file);
-		File googleFile=files.get(0);
-		File kuaipanfile=files.get(1);
+		
+		new Encoders().EncodeFile(file);
 		name=name.substring(1);
 		name=name.replaceAll("/.*/", "");
-		Main.googleDrive.uploadFile(name, googleFile);
-		Main.kuaipan.uploadFile(name, kuaipanfile);
+		System.out.println("name "+name);
+		Main.size.put(name, (int) file.length());
+		String[] tempname=Main.location.get(name);
+		System.out.println(tempname[1]);
+		
+		if (Main.KuaiPanUpload){
+			File file1=new File(tempname[0]);
+			String name1=tempname[0];
+			name1=name1.substring(2);
+			name1=name1.replaceAll("\\\\.*\\\\", "");
+			System.out.println(name1);
+			Main.kuaipan.uploadFile(name1, file1);
+			File file2=new File(tempname[1]);
+			String name2=tempname[1];
+			name2=name2.substring(2);
+			name2=name2.replaceAll("\\\\.*\\\\", "");
+			System.out.println(name2);
+			Main.kuaipan.uploadFile(name2, file2);
+			file1.delete();
+			file2.delete();
+		}
+		if (Main.GoogleUpload)
+		{
+			File file3=new File(tempname[2]);
+			String name3=tempname[2];
+			name3=name3.substring(2);
+			name3=name3.replaceAll("\\\\.*\\\\", "");
+			System.out.println(name3);
+			Main.kuaipan.uploadFile(name3, file3);
+			file3.delete();
+			Main.googleDrive.uploadFile(name3, file3);
+		}
+		
+		
 	}
 }

@@ -118,8 +118,7 @@ public class UI extends JFrame{
 				Download download=new Download();
 				try {
 					download.DownloadFile(name);
-				} catch (KuaipanIOException | KuaipanAuthExpiredException
-						| KuaipanServerException | IOException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
